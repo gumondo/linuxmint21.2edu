@@ -6,8 +6,13 @@ sudo apt clean -y;
 sudo apt install -y audacity openshot-qt wine gimp vlc ktechlab fritzing prusa-slicer logisim mate-tweak;
 sudo add-apt-repository ppa:danielrichter2007/grub-customizer;
 sudo apt install -y grub-customizer;
+sudo apt remove hypnotix transmission-gtk hexchat
+
 #PENDENTE:
 #detectar se o disco é ssd e en tal caso automatizar o trim
 #bloquear o cartafol do alumno
 #script de batería
 #script de arranxa swap
+#script para arranxar cousas via github
+#script limpar
+#script actualizar
