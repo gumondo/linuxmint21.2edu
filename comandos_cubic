@@ -7,12 +7,11 @@ sudo apt install -y audacity openshot-qt wine gimp vlc ktechlab fritzing prusa-s
 sudo add-apt-repository ppa:danielrichter2007/grub-customizer;
 sudo apt install -y grub-customizer;
 sudo apt remove hypnotix transmission-gtk hexchat
+# Engadidos os scripts actualizar limpar batería arranxa_swap
 
 #PENDENTE:
 #detectar se o disco é ssd e en tal caso automatizar o trim
 #bloquear o cartafol do alumno
-#script de batería
-#script de arranxa swap
+#bloquear a instalación de complementos no firefox e no chrome
 #script para arranxar cousas via github
-#script limpar
-#script actualizar
+
