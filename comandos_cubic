@@ -3,15 +3,31 @@ sudo apt upgrade -y;
 sudo apt dist-upgrade -y;
 sudo apt autoremove -y;
 sudo apt clean -y;
-sudo apt install -y audacity openshot-qt wine gimp vlc ktechlab fritzing prusa-slicer logisim mate-tweak;
+sudo apt install -y audacity openshot-qt wine gimp vlc ktechlab fritzing prusa-slicer logisim mate-tweak hardinfo inxi openboard;
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb;
+sudo gdebi --non-interactive google-chrome*.deb;
+sudo apt install -y google-earth-pro-stable;
 sudo add-apt-repository ppa:danielrichter2007/grub-customizer;
 sudo apt install -y grub-customizer;
-sudo apt remove hypnotix transmission-gtk hexchat
+sudo apt remove hypnotix transmission-gtk hexchat;
+
+
 # Engadidos os scripts actualizar limpar batería arranxa_swap
+# Engadido o script de bloquear paneis e a súa icona
+# Engadido o script de arranxar paneis e a súa icona
+# Instalado o IDE de Arduino
+# Instalado o Pseint
+# Instalado o Avidemux
+# Instalado o Fluidsim_demo
+# Instalado o Crocodile Elementary
+
+
+
 
 #PENDENTE:
 #detectar se o disco é ssd e en tal caso automatizar o trim
 #bloquear o cartafol do alumno
 #bloquear a instalación de complementos no firefox e no chrome
 #script para arranxar cousas via github
+#engadir o usuario alumno para que poida escribir datos polo porto usb
 
