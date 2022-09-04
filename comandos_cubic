@@ -3,13 +3,15 @@ sudo apt upgrade -y;
 sudo apt dist-upgrade -y;
 sudo apt autoremove -y;
 sudo apt clean -y;
-sudo apt install -y audacity openshot-qt wine gimp vlc ktechlab fritzing prusa-slicer logisim mate-tweak hardinfo inxi openboard;
+sudo apt install -y openboard mint-meta-codecs rar p7zip-rar ttf-mscorefonts-installer fonts-crosextra-carlito fonts-crosextra-calade;
+sudo apt install -y audacity openshot-qt wine gimp vlc ktechlab fritzing prusa-slicer logisim mate-tweak hardinfo inxi xfburn;
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb;
 sudo gdebi --non-interactive google-chrome*.deb;
 sudo apt install -y google-earth-pro-stable;
 sudo add-apt-repository ppa:danielrichter2007/grub-customizer;
 sudo apt install -y grub-customizer;
 sudo apt remove hypnotix transmission-gtk hexchat;
+sudo apt-get remove orca speech-dispatcher;
 
 
 # Engadidos os scripts actualizar limpar batería arranxa_swap
