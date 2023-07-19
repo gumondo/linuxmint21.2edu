@@ -4,11 +4,15 @@ sudo apt upgrade -y;
 sudo apt dist-upgrade -y;
 sudo apt autoremove -y;
 sudo apt clean -y;
+
 #REPOSITORIOS EXTRA
 add-apt-repository ppa:mozillateam/ppa -y
 add-apt-repository ppa:libreoffice/ppa -y
 apt-add-repository ppa:yktooo/ppa -y
 add-apt-repository ppa:openshot.developers/ppa -y
+add-apt-repository ppa:danielrichter2007/grub-customizer -y;
+
+
 #PAQUETES A ENGADIR
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb;
 gdebi --non-interactive google-chrome*.deb;
@@ -16,20 +20,13 @@ apt install -y google-earth-pro-stable;
 apt install rar p7zip-rar fonts-crosextra-carlito fonts-crosextra-caladea openshot-qt python3-openshot wine
 apt install mint-meta-codecs ktechlab inkscape gimp vlc synaptic indicator-sound-switcher ttf-mscorefonts-installer audacity openboard
 apt install vlc fritzing logisim mate-tweak hardinfo inxi xfburn
+apt install -y grub-customizer
 
 #PAQUETES A BORRAR
 apt purge transmission-gtk hexchat hypnotix;
 apt purge orca speech-dispatcher;
 
-
 #PRUSASLICER ARDUINO_IDE MUSESCORE AVIDEMUX
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb;sudo gdebi --non-interactive google-chrome*.deb;
-sudo apt install -y google-earth-pro-stable;
-sudo add-apt-repository ppa:danielrichter2007/grub-customizer;
-sudo apt install -y grub-customizer;
-sudo apt remove hypnotix transmission-gtk hexchat;
-sudo apt-get remove orca speech-dispatcher;
-
 
 # Engadidos os scripts actualizar limpar batería arranxa_swap
 # Engadido o script de bloquear paneis e a súa icona
