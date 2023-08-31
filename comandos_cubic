@@ -26,18 +26,21 @@ apt install -y grub-customizer
 apt purge transmission-gtk hexchat hypnotix;
 apt purge orca speech-dispatcher;
 
+#LOCALES
+
 #PRUSASLICER ARDUINO_IDE MUSESCORE AVIDEMUX
 
-# Engadidos os scripts actualizar limpar batería arranxa_swap
-# Engadido o script de bloquear paneis e a súa icona
-# Engadido o script de arranxar paneis e a súa icona
-# Instalado o IDE de Arduino
-# Instalado o Pseint
-# Instalado o Avidemux
-# Instalado o Fluidsim_demo
-# Instalado o Crocodile Elementary
+# scripts actualizar limpar batería arranxa_swap
+# script de bloquear paneis e a súa icona
+# script de arranxar paneis e a súa icona
+# IDE de Arduino
+# Pseint
+# Avidemux
+# Fluidsim_demo
+# Crocodile Elementary
 
-
+#controlador bi4id e dnie
+#autofirma
 
 
 #PENDENTE:
