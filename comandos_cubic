@@ -17,7 +17,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb;
 gdebi --non-interactive google-chrome*.deb;
 apt install -y google-earth-pro-stable;
 apt install rar p7zip-rar fonts-crosextra-carlito fonts-crosextra-caladea openshot-qt python3-openshot wine
-apt install mint-meta-codecs ktechlab inkscape gimp vlc synaptic indicator-sound-switcher ttf-mscorefonts-installer audacity openboard poedit
+apt install mint-meta-codecs ktechlab inkscape gimp vlc synaptic indicator-sound-switcher ttf-mscorefonts-installer audacity openboard poedit thonny
 apt install vlc fritzing logisim mate-tweak hardinfo inxi xfburn
 apt install -y grub-customizer
 apt install ubuntu-mate-themes mate-themes
