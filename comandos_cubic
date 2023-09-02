@@ -21,6 +21,8 @@ apt install rar p7zip-rar fonts-crosextra-carlito fonts-crosextra-caladea opensh
 apt install mint-meta-codecs ktechlab inkscape gimp vlc synaptic indicator-sound-switcher ttf-mscorefonts-installer audacity openboard poedit
 apt install vlc fritzing logisim mate-tweak hardinfo inxi xfburn
 apt install -y grub-customizer
+apt install ubuntu-mate-themes mate-themes
+
 
 #PAQUETES A BORRAR
 apt purge transmission-gtk hexchat hypnotix;
@@ -42,7 +44,7 @@ apt purge orca speech-dispatcher;
 #controlador bi4id e dnie
 #autofirma
 
-
+#instalar xuntasans
 #PENDENTE:
 #detectar se o disco é ssd e en tal caso automatizar o trim
 #bloquear o cartafol do alumno
