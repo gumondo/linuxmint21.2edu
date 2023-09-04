@@ -112,7 +112,7 @@ echo "Icon=/opt/prusaslicer/PrusaSlicer.png" | sudo tee -a /opt/prusaslicer/prus
 echo "Exec=prusaslicer" | sudo tee -a /opt/prusaslicer/prusaslicer.desktop;
 sudo cp -f /opt/prusaslicer/prusaslicer.desktop /usr/share/applications;
 
-#PRUSASLICER ARDUINO_IDE MUSESCORE
+#ARDUINO_IDE MUSESCORE
 
 # scripts actualizar limpar batería arranxa_swap
 # script de bloquear paneis e a súa icona
