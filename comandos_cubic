@@ -12,6 +12,7 @@ apt-add-repository ppa:yktooo/ppa -y
 add-apt-repository ppa:openshot.developers/ppa -y
 add-apt-repository ppa:danielrichter2007/grub-customizer -y;
 add-apt-repository ppa:stellarium/stellarium-releases -y;
+add-apt-repository ppa:epoptes -y;
 
 #PAQUETES A ENGADIR
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb;
@@ -19,7 +20,7 @@ gdebi --non-interactive google-chrome*.deb;
 apt install -y google-earth-pro-stable;
 apt install rar p7zip-rar fonts-crosextra-carlito fonts-crosextra-caladea openshot-qt python3-openshot wine stellarium
 apt install mint-meta-codecs ktechlab inkscape gimp vlc synaptic indicator-sound-switcher ttf-mscorefonts-installer audacity openboard poedit thonny arduino
-apt install vlc fritzing logisim mate-tweak hardinfo inxi xfburn krop
+apt install vlc fritzing logisim mate-tweak hardinfo inxi xfburn krop epoptes-client
 apt install -y grub-customizer
 apt install ubuntu-mate-themes mate-themes
 apt install -y lightdm-gtk-greeter-settings
@@ -111,12 +112,59 @@ echo "Icon=/opt/prusaslicer/PrusaSlicer.png" | sudo tee -a /opt/prusaslicer/prus
 echo "Exec=prusaslicer" | sudo tee -a /opt/prusaslicer/prusaslicer.desktop;
 sudo cp -f /opt/prusaslicer/prusaslicer.desktop /usr/share/applications;
 
+#MUSESCORE
+sudo rm -rf /opt/musescore;
+sudo rm -f /usr/share/applications/musescore.desktop;
+sudo rm -f /usr/bin/musescore;
+sudo mkdir /opt/musescore;
+wget https://cdn.jsdelivr.net/musescore/v4.1.1/MuseScore-4.1.1.232071203-x86_64.AppImage;
+sudo mv MuseScore* /opt/musescore;
+wget https://upload.wikimedia.org/wikipedia/commons/7/70/MuseScore_logo.png;
+sudo mv MuseScore_logo.png /opt/musescore;
+sudo chmod 755 -R /opt/musescore;
+sudo ln -s /opt/musescore/MuseScore-4.1.1.232071203-x86_64.AppImage /usr/bin/musescore;
+sudo touch /opt/musescore/musescore.desktop;
+echo "[Desktop Entry]" | sudo tee -a /opt/musescore/musescore.desktop;
+echo "Comment=Software de notación musical" | sudo tee -a /opt/musescore/musescore.desktop;
+echo "Name=MuseScore" | sudo tee -a /opt/musescore/musescore.desktop;
+echo "Type=Application" | sudo tee -a /opt/musescore/musescore.desktop;
+echo "Categories=Education;AudioVideo;" | sudo tee -a /opt/musescore/musescore.desktop;
+echo "Icon=/opt/musescore/MuseScore_logo.png" | sudo tee -a /opt/musescore/musescore.desktop;
+echo "Exec=musescore" | sudo tee -a /opt/musescore/musescore.desktop;
+sudo cp -f /opt/musescore/musescore.desktop /usr/share/applications;
 
+#EXELEARNING
+sudo rm -rf /opt/exelearning;
+sudo rm -f /usr/share/applications/exelearning.desktop;
+sudo rm -f /usr/bin/exelearning;
+sudo mkdir /opt/exelearning;
+wget https://github.com/exelearning/iteexe/releases/download/2.8.1/eXeLearning-2.8.1.glibc2.28-x86_64.AppImage;
+sudo mv eXeLearning-2.8.1.glibc2.28-x86_64.AppImage /opt/exelearning;
+wget https://exelearning.net/wp-content/uploads/2021/03/exelearning.png;
+sudo mv exelearning.png /opt/exelearning;
+sudo chmod 755 -R /opt/exelearning;
+sudo ln -s /opt/exelearning/eXeLearning-2.8.1.glibc2.28-x86_64.AppImage /usr/bin/exelearning;
+sudo touch /opt/exelearning/exelearning.desktop;
+echo "[Desktop Entry]" | sudo tee -a /opt/exelearning/exelearning.desktop;
+echo "Comment=The EXtremely Easy to use eLearning authoring tool" | sudo tee -a /opt/exelearning/exelearning.desktop;
+echo "Name=eXeLearning" | sudo tee -a /opt/exelearning/exelearning.desktop;
+echo "Type=Application" | sudo tee -a /opt/exelearning/exelearning.desktop;
+echo "Categories=Education" | sudo tee -a /opt/exelearning/exelearning.desktop;
+echo "Icon=/opt/exelearning/exelearning.png" | sudo tee -a /opt/exelearning/exelearning.desktop;
+echo "Exec=exelearning" | sudo tee -a /opt/exelearning/exelearning.desktop;
+sudo cp -f /opt/exelearning/exelearning.desktop /usr/share/applications;
+
+#ENGADIR USUARIO ADMINPC E ALUMNO
+adduser adminpc
+addgroup adminpc sudo
+adduser alumnado
+addgroup adminpc dialout
+addgroup alumnado dialout
 
 # scripts actualizar limpar batería arranxa_swap
 # script de bloquear paneis e a súa icona
 # script de arranxar paneis e a súa icona
-# IDE de Arduino
+# script poñer contrasinal ao grub
 # Fluidsim_demo
 # Crocodile Elementary
 #LOCALES
