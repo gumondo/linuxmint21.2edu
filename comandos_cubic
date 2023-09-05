@@ -18,13 +18,11 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb;
 gdebi --non-interactive google-chrome*.deb;
 apt install -y google-earth-pro-stable;
 apt install rar p7zip-rar fonts-crosextra-carlito fonts-crosextra-caladea openshot-qt python3-openshot wine stellarium
-apt install mint-meta-codecs ktechlab inkscape gimp vlc synaptic indicator-sound-switcher ttf-mscorefonts-installer audacity openboard poedit thonny
+apt install mint-meta-codecs ktechlab inkscape gimp vlc synaptic indicator-sound-switcher ttf-mscorefonts-installer audacity openboard poedit thonny arduino
 apt install vlc fritzing logisim mate-tweak hardinfo inxi xfburn krop
 apt install -y grub-customizer
 apt install ubuntu-mate-themes mate-themes
 apt install -y lightdm-gtk-greeter-settings
-apt install 
-
 
 #PAQUETES A BORRAR
 apt purge transmission-gtk hexchat hypnotix;
@@ -40,6 +38,7 @@ theme-name = Ambiant-MATE
 icon-theme-name = Ambiant-MATE
 indicators = ~host;~spacer;~clock;~spacer;~language;~power
 clock-format = %a %d %b, %H:%M
+default-user-image = /usr/share/icons/menta/256x256/status/avatar-default.png
 user-background = false
 
 #INSTALAR GEOGEBRA
@@ -112,7 +111,7 @@ echo "Icon=/opt/prusaslicer/PrusaSlicer.png" | sudo tee -a /opt/prusaslicer/prus
 echo "Exec=prusaslicer" | sudo tee -a /opt/prusaslicer/prusaslicer.desktop;
 sudo cp -f /opt/prusaslicer/prusaslicer.desktop /usr/share/applications;
 
-#ARDUINO_IDE MUSESCORE
+
 
 # scripts actualizar limpar batería arranxa_swap
 # script de bloquear paneis e a súa icona
