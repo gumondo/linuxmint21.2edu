@@ -14,6 +14,8 @@ add-apt-repository ppa:danielrichter2007/grub-customizer -y;
 add-apt-repository ppa:stellarium/stellarium-releases -y;
 add-apt-repository ppa:epoptes -y;
 
+
+
 #PAQUETES A ENGADIR
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb;
 gdebi --non-interactive google-chrome*.deb;
@@ -30,6 +32,7 @@ apt purge transmission-gtk hexchat hypnotix;
 apt purge orca speech-dispatcher;
 apt purge -y slick-greeter lightdm-settings;
 apt purge -y webapp-manager;
+apt purge -y brltty; #habilita o uso de determinadas placas de Arduino
 
 #CONFIGURAR O LIGHTDM-GTK-GREETER
 #editar /etc/lightdm/lightdm-gtk-greeter e engadir:
@@ -153,6 +156,12 @@ echo "Categories=Education" | sudo tee -a /opt/exelearning/exelearning.desktop;
 echo "Icon=/opt/exelearning/exelearning.png" | sudo tee -a /opt/exelearning/exelearning.desktop;
 echo "Exec=exelearning" | sudo tee -a /opt/exelearning/exelearning.desktop;
 sudo cp -f /opt/exelearning/exelearning.desktop /usr/share/applications;
+
+#LUMI
+wget https://github.com/Lumieducation/Lumi/releases/download/v0.10.0/lumi_0.10.0_amd64.deb;
+sudo gdebi --non-interactive *.deb;
+
+
 
 #ENGADIR USUARIO ADMINPC E ALUMNO
 adduser adminpc
