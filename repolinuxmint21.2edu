@@ -9,5 +9,5 @@ clear;
 sudo echo "Actualizando scripts e paquetes...";
 sudo svn checkout https://github.com/gumondo/linuxmint21.2edu.git /home/adminpc/.repolinuxmint21.2edu;
 sudo chmod 755 -R /home/adminpc/.repolinuxmint21.2edu;
-sudo sh /home/adminpc/.repolinuxmint21.2edu/trunk/index;
+sudo mv /home/adminpc/.repolinuxmint21.2edu/trunk/repolinuxmint21.2edu /usr/bin;
 exit
