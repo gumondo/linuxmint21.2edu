@@ -2,4 +2,4 @@
 #
 cd /home/adminpc/.repolinuxmint21.2edu/trunk;
 ls;
-exit
+#exit
