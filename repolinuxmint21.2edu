@@ -1,0 +1,13 @@
+#! /bin/sh
+#ver20200417.1
+pkg_subversion=$(dpkg-query -W --showformat='${Status}\n' subversion|grep "install ok installed");
+if [ 'install ok installed' != "$pkg_subversion" ];
+	then
+		sudo apt install -y subversion;
+fi
+clear;
+sudo echo "Actualizando scripts e paquetes...";
+sudo svn checkout https://github.com/gumondo/RepoUbuntuMateEdu2004.git /home/sindo/.RepoUbuntuMateEdu2004;
+sudo chmod 755 -R /home/sindo/.RepoUbuntuMateEdu2004;
+#sudo sh /home/adminpc/.RepoUbuntuMateEdu2004/trunk/index;
+#exit
