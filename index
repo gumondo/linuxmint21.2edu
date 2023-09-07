@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-cd /home/adminpc/.RepoUbuntuMateEdu2004/trunk;
+cd /home/adminpc/.linuxmint21.2edu/Public /trunk;
 #sudo sh postubiquity;
 sudo sh ppas;
 sudo sh configuracion_inicial;
