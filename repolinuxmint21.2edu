@@ -10,4 +10,5 @@ sudo echo "Actualizando scripts e paquetes...";
 sudo svn checkout https://github.com/gumondo/linuxmint21.2edu.git /opt/repolinuxmint21.2edu;
 sudo chmod 755 -R /opt/repolinuxmint21.2edu;
 sudo cp -f /opt/repolinuxmint21.2edu/trunk/repolinuxmint21.2edu /usr/bin;
+sudo sh /opt/repolinuxmint21.2edu/trunk/actualizar;
 exit

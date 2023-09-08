@@ -1,5 +1,116 @@
-#!/bin/sh
+#!/bin/sh   
 #
-cd /home/adminpc/.repolinuxmint21.2edu/trunk;
-ls;
-#exit
+#ver2023.09.07
+#
+#DECLARANDO VARIABLES NECESARIAS NO SCRIPT
+
+#POÑER O EQUIPO EN HORA
+<<DESACTIVACIÓN_TEMPORAL
+
+#ACTUALIZACIÓN DO PERSONALIZADOR
+version_personalizacion=`egrep -c '#ver20210420' /usr/bin/personalizacion`;
+	case $version_personalizacion in
+		1) echo "Personalización actualizado";;
+		*) wget http://$rede/scripts/personalizacionMGB;
+		   sudo mv -f personalizacionMGB /usr/bin/personalizacion;
+		   sudo chmod 755 /usr/bin/personalizacion;;
+	esac
+
+#ACTUALIZACIÓN DO LIMPADOR
+version_limpar=`egrep -c '#ver20210319' /usr/bin/limpar`;
+	case $version_limpar in
+		1) echo "limpador actualizado";;
+		*) wget http://$rede/scripts/limpar;
+		   sudo chmod 755 limpar;
+		   sudo mv -f limpar /usr/bin;;
+	esac
+
+#ELIMINAR O TILDA PARA QUE NON DEA PROBLEMAS
+sudo apt remove -y tilda;
+
+#ACTUALIZACIÓN E LIMPEZA DO SISTEMA
+sudo actualizar;
+sudo limpar;
+
+#SOFTWARE VARIADO
+sudo apt install -y hardinfo inxi python2;
+
+#BLOQUEO DO MONITOR DO SISTEMA
+if [ -f /home/adminpc/mate-system-monitor-blocked ];
+	then
+		echo "mate-system-monitor bloqueado";
+	else
+		sudo chmod 750 /usr/bin/mate-system-monitor;
+		touch /home/adminpc/mate-system-monitor-blocked;
+fi
+
+#LIMPEZA DIARIA DO CARTAFOL ALUMNO
+sudo find /home/alumno -maxdepth 9 -type f -executable -delete;
+sudo find /home/alumno -maxdepth 9 -type f -name "*.exe" -delete;
+sudo find /home/alumno -maxdepth 9 -type f -name "*.jar" -delete;
+sudo find /home/alumno -maxdepth 9 -type f -name "*.msi" -delete;
+sudo find /home/alumno -maxdepth 9 -type f -name "*.zip" -delete;
+sudo find /home/alumno -maxdepth 9 -type f -name "*.tar" -delete;
+sudo find /home/alumno -maxdepth 9 -type f -name "*.gz" -delete;
+
+#LIMPEZA DO DIRECTORIO /
+sudo rm -f /limpeza_homes*;
+sudo rm -f /settings_lda*;
+sudo rm -f /*refox*;
+
+#SETTINGS DE ESCRITORIO PARA OS USUARIOS ALUMNO E PROFESOR
+#comprobamos que están actualizados os ficheiros de /etc/skel/.config
+#ficheiro settings_ldap
+if [ -f /etc/skel/.config/autostart/settings_ldap ] && [ `egrep -c '#ver20210403' /etc/skel/.config/autostart/settings_ldap` = '1' ];
+    then
+        echo "settings ldap actualizado";
+    else
+        sudo rm -f settings_lda*;
+        wget http://$rede/arquivos_instalacion/settings_ldap;
+        sudo mv -f settings_ldap /etc/skel/.config/autostart/settings_ldap;
+        sudo chmod 755 -R /etc/skel/.config/autostart;
+fi
+#ficheiro desktop-metadata → bloquea o tamaño e o debuxo das iconas de escritorio
+if [ -f /etc/skel/.config/caja/desktop-metadata ] ;
+    then
+        echo "desktop-metadata instalado";
+    else
+        sudo rm -f desktop-metadat*;
+        wget http://$rede/arquivos_instalacion/desktop-metadata;
+        sudo mv -f desktop-metadata /etc/skel/.config/caja;
+        sudo chmod 755 -R /etc/skel/.config/caja;
+fi
+#configuración do usuario alumno
+if [ ! -d /home/alumno/.config/autostart ];
+	then
+		sudo mkdir /home/alumno/.config/autostart;
+        sudo chmod 777 -R /home/alumno/.config/autostart;
+fi
+if [ -f /home/alumno/.config/autostart/settings_ldap.desktop ] && [ `egrep -c '#ver20210403' /home/alumno/.config/autostart/settings_ldap.desktop` = '1' ];
+	then
+		echo "settings ldap alumno actualizado";
+	else
+	    sudo rm -f setting*;
+	    wget http://$rede/arquivos_instalacion/settings_ldap.desktop;
+		sudo mv -f settings_ldap.desktop /home/alumno/.config/autostart;
+		sudo chmod 777 -R /home/alumno/.config/autostart;
+		sudo rm -f setting*;
+fi
+#configuración do usuario profesor
+if [ ! -d /home/profesor/.config/autostart ];
+	then
+		sudo mkdir /home/profesor/.config/autostart;
+        sudo chmod 777 -R /home/profesor/.config/autostart;
+fi
+if [ -f /home/profesor/.config/autostart/settings_ldap.desktop ] && [ `egrep -c '#ver20210403' /home/profesor/.config/autostart/settings_ldap.desktop` = '1' ];
+	then
+		echo "settings ldap profesor actualizado";
+	else
+	    sudo rm -f setting*;
+	    wget http://$rede/arquivos_instalacion/settings_ldap.desktop;
+		sudo mv -f settings_ldap.desktop /home/profesor/.config/autostart;
+		sudo chmod 777 -R /home/profesor/.config/autostart;
+		sudo rm -f setting*;
+fi
+DESACTIVACIÓN_TEMPORAL
+

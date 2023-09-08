@@ -1,6 +1,83 @@
 #!/bin/sh   
 #
-#ver20230907
+#ver2023.09.07
+#COMPROBACIÓN DO TIPO DE DISCO QUE TEN O PC E SE É SSD COMPROBAR QUE TEN AHCI ACTIVO
+sudo blkid > /tmp/particions;
+sudo lspci > $HOME/ahci;
+if [ `egrep -c 'mmcblk0p1' /tmp/particions` = '1' ] || [ `cat /sys/block/sda/queue/rotational` = '0' ];
+	then
+		if [ `egrep -c 'AHCI' $HOME/ahci` = '0' ];
+		    then
+		        clear;
+		        echo "ATENCIÓN:";
+		        echo "O disco duro é SSD pero non ten activado o modo AHCI na Bios";
+		        echo "Preme unha tecla para continuar";
+		        read avisoahci
+		        case $avisoahci in
+		            *) clear;;
+	            esac
+	            rm -f $HOME/ahci;
+            else
+                echo "Disco duro SSD co modo AHCI activo";
+   	            rm -f $HOME/ahci;
+        fi
+fi
+
+#DETECTAR SE O DISCO DURO RAÍZ É SSD OU EMMC E ESTABLECER UN TRIM NEL EN TAL CASO
+if [ `egrep -c 'mmcblk0p1' /tmp/particions` = '0' ];
+	then
+		if [ `cat /sys/block/sda/queue/rotational` = '1' ];
+			then
+				echo "O disco duro principal é tipo HDD";
+			else
+				if [ -f /etc/systemd/system/fstrim.timer.d/override.conf ] && [ `egrep -c 'daily' /etc/systemd/system/fstrim.timer.d/override.conf` = '1' ];
+					then
+						echo "Disco SSD con TRIM xa programado diariamente";
+					else
+						sudo mkdir /etc/systemd/system/fstrim.timer.d;
+						sudo rm -f /etc/systemd/system/fstrim.timer.d/override.conf;
+						sudo touch /etc/systemd/system/fstrim.timer.d/override.conf;
+						echo "[Timer]" | sudo tee -a /etc/systemd/system/fstrim.timer.d/override.conf;
+						echo "OnCalendar=" | sudo tee -a /etc/systemd/system/fstrim.timer.d/override.conf;
+						echo "OnCalendar=daily" | sudo tee -a /etc/systemd/system/fstrim.timer.d/override.conf;
+						sudo chmod 755 /etc/systemd/system/fstrim.timer.d/override.conf;
+				fi
+		fi	
+	else
+		echo "O disco SSD é tipo eMMC";
+		if [ -f /etc/systemd/system/fstrim.timer.d/override.conf ] && [ `egrep -c 'daily' /etc/systemd/system/fstrim.timer.d/override.conf` = '1' ];
+			then
+				echo "Disco SSD eMMC con TRIM xa programado diariamente";
+			else
+				sudo mkdir /etc/systemd/system/fstrim.timer.d;
+				sudo rm -f /etc/systemd/system/fstrim.timer.d/override.conf;
+				sudo touch /etc/systemd/system/fstrim.timer.d/override.conf;
+				echo "[Timer]" | sudo tee -a /etc/systemd/system/fstrim.timer.d/override.conf;
+				echo "OnCalendar=" | sudo tee -a /etc/systemd/system/fstrim.timer.d/override.conf;
+				echo "OnCalendar=daily" | sudo tee -a /etc/systemd/system/fstrim.timer.d/override.conf;
+				sudo chmod 755 /etc/systemd/system/fstrim.timer.d/override.conf;
+		fi
+fi
+#COMPROBAR SE A SWAP ESTÁ ACTIVADA
+if [ `egrep -c 'mmcblk0p1' /tmp/particions` = '1' ];
+	then
+		echo "Disco eMMC, a solución á RAM debe ser de xeito manual";
+	else
+		sudo swapon -s > /tmp/checking_swap;
+		arranxando_swap=`egrep -c 'sda' /tmp/checking_swap`;
+		case $arranxando_swap in
+			1) echo "Partición swap correcta";;
+			*) uuid1=$( awk '/^[^#].*swap/{print substr($1,6)}' /etc/fstab );
+			   device1=$( blkid -t TYPE="swap" -o device | head -n1 );
+			   if [ "$device1" == "" ];
+			   then
+			        echo "ATENCIÓN: este equipo non ten partición para swap";
+			   fi
+               sudo swapoff -v -a;
+               sudo mkswap -U $uuid1  $device1;
+               sudo swapon -v -a;;
+		esac
+fi
 #CAMBIAR CONTRASINAL ADMINPC
 clear;
 echo "Cambio de contrasinal para o usuario adminpc...";
@@ -8,23 +85,23 @@ sudo passwd adminpc;
 clear;
 echo "Confirmación do novo contrasinal...";
 sudo echo "Contrasinal novo confirmado";
-#CAMBIAR CONTRASINAL USUARIO PROFESOR
+#CAMBIAR CONTRASINAL USUARIO PROFESORADO
 clear;
-echo "Cambio de contrasinal para o usuario profesor...";
-sudo passwd profesor;
+echo "Cambio de contrasinal para o usuario profesorado...";
+sudo passwd profesorado;
 clear;
 echo "Confirmación do novo contrasinal...";
 sudo echo "Contrasinal novo confirmado";
 
-#COMPROBANDO SE XA SE PUXO CONTRASINAL AO GRUB
-if [ -f /home/adminpc/grubpassword ];
+#CONTRASINAL AO GRUB
+if [ -f /etc/default/grubpassword ];
 	then 
 		echo "O grub xa ten contrasinal";
 	else
 		clear;
 		sudo ls;
 		clear;
-		echo "Vaise asignar un contrasinal para evitar a modificación ao grub";
+		echo "Vaise asignar un contrasinal para o usuario adminpc para evitar a modificación ao grub";
 		echo "A continuación teclea unha vez o contrasinal e preme enter";
 		echo "E a continuación volve teclear o mesmo contrasinal e a preme enter";
 		sudo grub-mkpasswd-pbkdf2 > grubtemp;
@@ -49,21 +126,21 @@ if [ -f /home/adminpc/grubpassword ];
 		sudo touch /home/adminpc/grubpassword;
 fi
 
-#PERSONALIZACIÓN USUARIO ALUMNO
-if id -nG alumno | grep -qw nopasswdlogin;
+#PERSONALIZACIÓN USUARIO ALUMNADO
+if id -nG alumnado | grep -qw nopasswdlogin;
 	then
-		echo "Login alumno sen contrasinal";
+		echo "Login do usuario alumnado sen contrasinal";
 	else
-		sudo gpasswd -a alumno nopasswdlogin;
+		sudo gpasswd -a alumnado nopasswdlogin;
 fi
 
-mozo_alumno=`egrep -c 'mozoblacklist' /etc/group`;
-	case $mozo_alumno in
+mozo_alumnado=`egrep -c 'mozoblacklist' /etc/group`;
+	case $mozo_alumnado in
 		0) sudo addgroup mozoblacklist;
 		   sudo chmod 705 /usr/bin/mozo;
 		   sudo chgrp mozoblacklist /usr/bin/mozo;
-		   sudo adduser alumno mozoblacklist;;
-		*) echo "Usuario alumno en mozoblacklist";;
+		   sudo adduser alumnado mozoblacklist;;
+		*) echo "Usuario alumnado en mozoblacklist";;
 	esac
 
 #AMOSAR MENÚ DO GRUB AO INICIO
@@ -75,70 +152,25 @@ if [ `egrep -c 'hidden' /etc/default/grub` = '1' ] || [ `egrep -c '5' /etc/defau
 		sudo update-grub2;
 fi
 
-#COMPROBAR QUE O ESCRITORIO DO USUARIO ALUMNO ESTÁ BLOQUEADO
-owner=`stat -c "%U" /home/alumno/Escritorio`;
-if [ $owner = 'alumno' ];
+#COMPROBAR QUE O ESCRITORIO DO USUARIO ALUMNADO ESTÁ BLOQUEADO
+owner=`stat -c "%U" /home/alumnado/Escritorio`;
+if [ $owner = 'alumnado' ];
 	then
-    	sudo chown adminpc /home/alumno/Escritorio;
-		sudo chmod 755 -R /home/alumno/Escritorio;
+    	sudo chown adminpc /home/alumnado/Escritorio;
+		sudo chmod 755 -R /home/alumnado/Escritorio;
 fi
 
-#DESCARGAR EXTRA_INTRANET
-sudo rm -f extra_intrane*;
-wget http://$rede/scripts/extra_intranet;
-sed -i '/tempo_espera/d' extra_intranet; #eliminar a espera de 10'
-sudo sh extra_intranet;
+#INSTALAR PAQUETES DE IDIOMAS PENDENTES
+sudo apt-get -y install `check-language-support -l en`;
+sudo apt-get -y install `check-language-support -l gl`;
 
-#REINICIAR O SERVIZO DE AUTOACTUALIZACIÓNS
-sudo systemctl start updates-cronjob.service;
-
-#COMPROBAR IDIOMAS
-sudo /usr/bin/gnome-language-selector;
-
-#COMPROBAR HARDWARE
-#sudo /usr/bin/software-properties-gtk --open-tab=4;
-
-#DESACTIVAR SERVIZO AO INICIO
-#clear;
-#echo "DESACTIVA O SPEECH-DISPATCHER";
-#gksu bum;
-
-#BORRAR ESTE SCRIPT
-#sudo rm -f /home/alumno/extra;
-#sudo rm -f /home/profesor/extra;
-
-#COMPROBACIÓN DO TIPO DE DISCO QUE TEN O PC E SE É SSD COMPROBAR QUE TEN AHCI ACTIVO
-sudo blkid > /tmp/particions;
-sudo lspci > $HOME/ahci;
-if [ `egrep -c 'mmcblk0p1' /tmp/particions` = '1' ] || [ `cat /sys/block/sda/queue/rotational` = '0' ];
+#RESTRINXIR O USO DE SSH A TODOS MENOS ALGÚNS USUARIOS
+if [ `egrep -c 'AllowUsers' /etc/ssh/sshd_config` = '1' ];
 	then
-		if [ `egrep -c 'AHCI' $HOME/ahci` = '0' ];
-		    then
-		        clear;
-		        echo "ATENCIÓN:";
-		        echo "O disco duro é SSD pero non ten activado o modo AHCI na Bios";
-		        echo "Preme unha tecla para continuar";
-		        read avisoahci
-		        case $avisoahci in
-		            *) clear;;
-	            esac
-	            rm -f $HOME/ahci;
-            else
-                echo "Disco duro SSD co modo AHCI activo";
-   	            rm -f $HOME/ahci;
-        fi
+		echo "Restrinxido o uso de ssh";
+	else
+		sudo sed -i '$a\AllowUsers adminpc' /etc/ssh/sshd_config;
 fi
+exit
 
-#REINICIAR SESIÓN GRÁFICA DE PROFESOR
-clear;
-echo "A que usuario hai que resetearlle os paneis?";
-echo "a) alumno";
-echo "p) profesor";
-read reseteo_paneis;
-case $reseteo_paneis in
-a) su - alumno -c /usr/bin/layout-personalizado-ubuntu-mate;;
-p) su - profesor -c /usr/bin/layout-personalizado-ubuntu-mate;;
-A) su - alumno -c /usr/bin/layout-personalizado-ubuntu-mate;;
-P) su - profesor -c /usr/bin/layout-personalizado-ubuntu-mate;;
-*) ;;
-esac
+
