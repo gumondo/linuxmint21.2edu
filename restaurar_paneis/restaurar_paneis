@@ -1,0 +1,11 @@
+#! /bin/bash
+#
+#ver20170831
+echo "A continuación restaurarase o panel predeterminado do Linux Mint e reiniciarase sesión";
+echo "Desexas continuar (S/N)";
+read layout_ubuntu_mate
+case $layout_ubuntu_mate in
+		"s") mate-panel --reset; mate-session-save --force-logout;;
+		"S") mate-panel --reset; mate-session-save --force-logout;;
+		  *) ;;
+esac

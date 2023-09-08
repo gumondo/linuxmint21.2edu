@@ -1,0 +1,47 @@
+#!/bin/sh   
+#
+#SCRIPT PARA A PREINSTALACIÓN DE EPOPTES NOS EQUIPOS DE ALUMNOS DE AULAS INFO
+if [ -f /home/adminpc/epoptes_instalado ];
+	then
+		echo "epoptes xa instalado";	
+	else	
+		if [ `egrep -c 'info' /etc/hostname` = '0' ];
+			then
+				echo "Non é equipo de aulas de informática";
+			else
+				sudo apt install -y epoptes-client;
+					#COMPROBACIÓN DE INFO1
+					if [ `egrep -c 'info1' /etc/hostname` = '1' ];
+						then
+							ping -q -c2 10.55.96.160 > /dev/null;							
+							if [ $? -eq 0 ] && [ `egrep -c '10.55.96.160' /etc/hosts` = '0' ];
+								then
+									sudo sed -i '$a\10.55.96.160	server' /etc/hosts;
+									sudo epoptes-client -c;
+									sudo touch /home/adminpc/epoptes_instalado;
+							fi
+					fi
+					#COMPROBACIÓN DE INFO2
+					if [ `egrep -c 'info2' /etc/hostname` = '1' ];
+						then
+							ping -q -c2 10.55.96.190 > /dev/null;							
+							if [ $? -eq 0 ] && [ `egrep -c '10.55.96.190' /etc/hosts` = '0' ];
+								then
+									sudo sed -i '$a\10.55.96.190	server' /etc/hosts;
+									sudo epoptes-client -c;
+									sudo touch /home/adminpc/epoptes_instalado;
+							fi
+					fi
+					#COMPROBACIÓN DE INFO3
+					if [ `egrep -c 'info3' /etc/hostname` = '1' ];
+						then
+							ping -q -c2 10.55.96.140 > /dev/null;							
+							if [ $? -eq 0 ] && [ `egrep -c '10.55.96.140' /etc/hosts` = '0' ];
+								then
+									sudo sed -i '$a\10.55.96.140	server' /etc/hosts;
+									sudo epoptes-client -c;
+									sudo touch /home/adminpc/epoptes_instalado;
+							fi
+					fi
+		fi
+fi

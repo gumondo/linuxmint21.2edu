@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+#
+#ver20210329
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Icon=/usr/share/pixmaps/bloqueo_paneis.svg
+Exec=/usr/bin/bloqueo_paneis
+Name=Bloqueador de paneis
+Comment=Bloquear/Desbloquear paneis do usuario
+Categories=Settings;DesktopSettings;

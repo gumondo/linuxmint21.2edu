@@ -1,0 +1,7 @@
+[Desktop Entry]
+Terminal=false
+Type=Application
+Name=settings
+Exec=/etc/skel/.config/autostart/settings
+Name[gl]=settings
+Name[gl_ES]=settings.desktop

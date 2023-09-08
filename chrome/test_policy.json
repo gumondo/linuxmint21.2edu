@@ -1,0 +1,19 @@
+//ver20210208
+{ 
+"HomepageLocation": "http://www.edu.xunta.gal/centros/iesmilladoiro/" ,
+"HomepageIsNewTabPage": false ,
+"NewTabPageLocation": "https://www.google.es" ,
+"RestoreOnStartup": 4 , 
+"RestoreOnStartupURLs": ["http://www.edu.xunta.gal/centros/iesmilladoiro/"] ,
+"PasswordManagerEnabled": false ,
+"ShowHomeButton": true ,
+"TranslateEnabled": false ,
+"BookmarkBarEnabled": true ,
+"DefaultBrowserSettingEnabled": false ,
+"DefaultCookiesSetting": 4 ,
+"AutofillAddressEnabled": false ,
+"SavingBrowserHistoryDisabled": true ,
+"BlockExternalExtensions": true ,
+"ExtensionInstallBlocklist": ["*"] ,
+"BrowserSignin": 0 
+}

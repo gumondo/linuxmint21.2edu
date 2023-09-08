@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+#ver20210917
+#
+#COMPROBAR QUE O ESCRITORIO DO USUARIO ALUMNADO ESTÁ BLOQUEADO
+owner=`stat -c "%U" /home/alumnado/Escritorio`;
+if [ $owner = 'alumnado' ];
+	then
+    	sudo chown adminpc /home/alumnado/Escritorio;
+		sudo chmod 755 -R /home/alumnado/Escritorio;
+fi
+
+#ARRANXO DO PROBLEMA DAS ICONAS DE MATE-PANEL QUE NON CARGAN BEN
+
+
+if [ `egrep -c 'Categories=Development' /usr/share/applications/mblock.desktop` != '1' ];
+	then
+		sudo sed -i '/Categories=Development/ d' /usr/share/applications/mblock.desktop;
+		sudo sed -i -e "\$aCategories=Development" /usr/share/applications/mblock.desktop;
+fi
+
+#MEMORIA RAM
+cantidade_ram=`cat /proc/sys/vm/swappiness`;
+case $cantidade_ram in
+10) echo "Swappiness correcta";;
+*) sudo sed -i '/vm.swappiness=/ d' /etc/sysctl.conf; echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf; sudo sed -i '/vm.vfs_cache_pressure=/ d' /etc/sysctl.conf; echo "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf;;
+esac
+
+
+
+

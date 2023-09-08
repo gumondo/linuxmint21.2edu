@@ -1,0 +1,14 @@
+#!/usr/bin/env xdg-open
+#
+#ver20170831
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Icon=/usr/share/pixmaps/restaurar_paneis.svg
+Exec=/usr/bin/restaurar_paneis
+Name=Restaurar paneis
+Comment=Restaurar paneis do escritorio á disposición por defecto
+Categories=Settings;DesktopSettings;
+Name[gl]=Restaurar paneis

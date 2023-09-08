@@ -1,0 +1,12 @@
+{
+  "policies": {
+    "DisplayMenuBar": true,
+  	"DisplayBookmarksToolbar": true,
+	"BlockAboutConfig": true,
+    "BlockAboutAddons": true,
+	"InstallAddonsPermission": 
+		{
+		"Default": false
+		}
+	}
+}

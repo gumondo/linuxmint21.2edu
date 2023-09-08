@@ -1,0 +1,21 @@
+#! /bin/bash
+#
+#ver20210329
+echo "A continuación teclea o contrasinal do usuario adminpc...";
+if su -c true "adminpc";
+	then
+		echo "Escolle a operación que desexes executar sobre o panel do actual usuario...";
+		echo "BLOQUEAR → B";
+		echo "DESBLOQUEAR → D";
+		echo "CONTINUAR → calquera outra tecla";
+		read bloqpan
+		case $bloqpan in
+			"b") gsettings set org.mate.panel locked-down true;;
+			"B") gsettings set org.mate.panel locked-down true;;
+			"d") gsettings set org.mate.panel locked-down false;;
+			"D") gsettings set org.mate.panel locked-down false;;
+			*) ;;
+		esac
+	else
+		echo "Contrasinal de adminpc incorrecto";
+fi

@@ -1,0 +1,46 @@
+#!/bin/bash
+#ver20210210
+#
+id > $HOME/.grupos.txt;
+if [ `egrep -c 'alumnado' $HOME/.grupos.txt` = '1' ];
+	then
+		rm -f $HOME/.config/caja/desktop-metadata;
+		gsettings set org.mate.panel locked-down true; #BLOQUEO DOS PANEIS
+		gsettings set org.mate.lockdown disable-print-setup true; #BLOQUEO DA IMPRESIÓN
+		gsettings set org.mate.lockdown disable-printing true;
+		gsettings set org.mate.lockdown disable-theme-settings true; #BLOQUEO DAS OPCIÓNS DE APARIENCIA
+		gsettings reset org.mate.caja.desktop home-icon-name; #BLOQUEO NOME CARTAFOL PERSOAL
+		gsettings reset org.mate.caja.desktop computer-icon-name; #BLOQUEO NOME C0MPUTADOR
+		gsettings reset org.mate.caja.desktop network-icon-name; #BLOQUEO NOME REDE
+		gsettings reset org.mate.caja.desktop trash-icon-name; #BLOQUEO NOME LIXO
+		#gsettings set org.mate.pluma color-scheme classic; #BLOQUEO DO FONDO DE ESCRITORIO
+fi
+#FONDO DE ESCRITORIO
+gsettings set org.mate.background picture-filename '/usr/share/backgrounds/linuxmint/default_background.jpg'
+#VISIBILIDADE DAS ICONAS DE ESCRITORIO
+gsettings set org.mate.caja.desktop computer-icon-visible true
+gsettings set org.mate.caja.desktop network-icon-visible true
+gsettings set org.mate.caja.desktop trash-icon-visible true
+#TEMA DE ESCRITORIO
+gsettings set org.mate.interface gtk-theme Yaru-sage
+gsettings set org.mate.interface icon-theme Yaru-sage
+gsettings set org.mate.Marco.general theme Yaru-sage
+#TIPO DE FONTE POR DEFECTO
+gsettings set org.mate.interface font-name 'Ubuntu 11'
+gsettings set org.mate.interface document-font-name 'Ubuntu 11'
+gsettings set org.mate.caja.desktop font 'Ubuntu 11'
+gsettings set org.mate.Marco.general titlebar-font 'Ubuntu Medium 11'
+gsettings set org.mate.interface monospace-font-name 'Ubuntu Mono 13'
+#BLOQUEO DO TIPO DE PROTECTOR DE PANTALLA
+gsettings set org.mate.screensaver mode blank-only
+#NÚMERO DE ESPAZOS DE TRABALLO
+gsettings set org.mate.Marco.general num-workspaces 1
+#APAGAR AO PULSAR BOTÓN ACENDIDO
+gsettings set org.mate.power-manager button-lid-ac shutdown
+gsettings set org.mate.power-manager button-lid-battery shutdown
+gsettings set org.mate.power-manager button-power shutdown
+#DESACTIVAR CONTRASINAL PROTECTOR DE PANTALLA
+gsettings set org.mate.screensaver lock-enabled false
+#FORZAR O FIREFOX COMO NAVEGADOR POR DEFECTO
+xdg-settings set default-web-browser firefox.desktop
+
